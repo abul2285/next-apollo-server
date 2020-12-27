@@ -2,19 +2,23 @@ import { scalarMutation, scalarQuery } from "./scalar";
 import { rootMutation, rootQuery } from "./root";
 import { customDate, Image } from "./customScalar";
 import { enumQuery, enumMutation, enumShare } from "./enum";
+import { unionsMutation, unionsQuery, unionsShare } from "./unions";
 
 export default {
-  Image: Image,
-  Date: customDate,
-  ...enumShare,
+  // Image: Image,
+  // Date: customDate,
+  // ...enumShare,
+  // ...unionsShare,
   Query: {
     // ...rootQuery,
-    ...scalarQuery,
-    ...enumQuery,
+    // ...scalarQuery,
+    // ...enumQuery,
+    ...unionsQuery,
   },
   Mutation: {
     // ...rootMutation,
-    ...scalarMutation,
-    ...enumMutation,
+    // ...scalarMutation,
+    // ...enumMutation,
+    ...unionsMutation,
   },
 };
