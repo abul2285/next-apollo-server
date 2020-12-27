@@ -69,13 +69,14 @@ export default gql`
     user: User
   }
 
-  type Query {
+  extend type Query {
     books: [Book]
     authors: [Author]
     files: [File!]
+    # today: Today
   }
 
-  type Mutation {
+  extend type Mutation {
     addBook(title: String): Book!
     addAuthor(name: String): Author!
     # input type ref
@@ -85,5 +86,6 @@ export default gql`
     uploadFile(file: Upload!): File
     # structure of updateUserEmail response
     updateUserEmail(email: String!): UpdateUserEmailMutationResponse
+    # today(date: Date): Today
   }
 `;

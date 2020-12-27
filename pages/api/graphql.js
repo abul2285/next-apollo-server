@@ -4,8 +4,8 @@ import resolvers from "./resolvers";
 import mongoose from "mongoose";
 
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
+  typeDefs: typeDefs,
+  resolvers: resolvers,
   context: () => {},
 });
 const handler = apolloServer.createHandler({ path: "/api/graphql" });
@@ -17,7 +17,7 @@ const handler = apolloServer.createHandler({ path: "/api/graphql" });
       useUnifiedTopology: true,
     });
     console.log("db connected");
-  } catch (error) {
+  } catch (err) {
     console.log(err);
   }
 })();
