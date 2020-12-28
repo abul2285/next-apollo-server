@@ -4,6 +4,11 @@ import { customDate, Image } from "./customScalar";
 import { enumQuery, enumMutation, enumShare } from "./enum";
 import { unionsMutation, unionsQuery, unionsShare } from "./unions";
 import {
+  dataSourceQuery,
+  dataSourceMutation,
+  dataSourceShare,
+} from "./dataSources";
+import {
   directivesMutation,
   directivesQuery,
   directivesShare,
@@ -20,14 +25,16 @@ export default {
   // ...enumShare,
   // ...unionsShare,
   // ...interfacesShare,
-  ...directivesShare,
+  // ...directivesShare,
+  ...dataSourceShare,
   Query: {
     // ...rootQuery,
     // ...scalarQuery,
     // ...enumQuery,
     // ...unionsQuery,
     // ...interfacesQuery,
-    ...directivesQuery,
+    // ...directivesQuery,
+    ...dataSourceQuery,
   },
   Mutation: {
     // ...rootMutation,
@@ -35,6 +42,7 @@ export default {
     // ...enumMutation,
     // ...unionsMutation,
     // ...interfacesMutation,
-    ...directivesMutation,
+    // ...directivesMutation,
+    ...dataSourceMutation,
   },
 };

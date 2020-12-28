@@ -5,6 +5,7 @@ import { getUserByToken, getById } from "./data/db";
 import mongoose from "mongoose";
 import AuhtDirective from "./directives/auth";
 import Decoration from "./directives/decoration";
+import PostData from "./datasources/Post";
 
 const apolloServer = new ApolloServer({
   typeDefs: typeDefs,
@@ -20,6 +21,11 @@ const apolloServer = new ApolloServer({
       user: currentUser,
       User: { getUserByToken },
       Message: { getById },
+    };
+  },
+  dataSources: () => {
+    return {
+      postAPI: new PostData(),
     };
   },
 });
