@@ -4,6 +4,11 @@ import scalar from "./scalar";
 import enums from "./enum";
 import unions from "./unions";
 import interfaces from "./interfaces";
-const schemaArray = [root, main, /*scalar, enums,*/ unions, interfaces];
+import directives from "./directives";
+const schemaArray = [
+  root,
+  /*main,
+  scalar, enums, unions, interfaces,*/ directives,
+];
 
 export default schemaArray;
