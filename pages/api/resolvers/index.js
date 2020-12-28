@@ -19,6 +19,11 @@ import {
   interfacesShare,
 } from "./interfaces";
 import { uploadQuery, uploadMutation } from "./upload";
+import {
+  subScriptionMutation,
+  subScriptionQuery,
+  subScriptionShare,
+} from "./subScription";
 
 export default {
   // Image: Image,
@@ -28,6 +33,7 @@ export default {
   // ...interfacesShare,
   // ...directivesShare,
   // ...dataSourceShare,
+  ...subScriptionShare,
 
   Query: {
     // ...rootQuery,
@@ -37,7 +43,8 @@ export default {
     // ...interfacesQuery,
     // ...directivesQuery,
     // ...dataSourceQuery,
-    ...uploadQuery,
+    // ...uploadQuery,
+    ...subScriptionQuery,
   },
   Mutation: {
     // ...rootMutation,
@@ -47,6 +54,7 @@ export default {
     // ...interfacesMutation,
     // ...directivesMutation,
     // ...dataSourceMutation,
-    ...uploadMutation,
+    // ...uploadMutation,
+    ...subScriptionMutation,
   },
 };

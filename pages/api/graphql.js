@@ -14,7 +14,11 @@ const apolloServer = new ApolloServer({
     auth: AuhtDirective,
     decorate: Decoration,
   },
-  context: ({ req }) => {
+  context: ({ req, connection }) => {
+    if (connection) {
+      // check connection for metadata
+      return connection.context;
+    }
     const token = req.headers.authorization;
     const currentUser = getUserByToken(token);
     return {
@@ -28,20 +32,20 @@ const apolloServer = new ApolloServer({
       postAPI: new PostData(),
     };
   },
-});
-const handler = apolloServer.createHandler({ path: "/api/graphql" });
+  subscriptions: {
+    path: "/api/graphqlSubscriptions",
+    keepAlive: 9000,
+    onConnect: console.log("connected"),
+    onDisconnect: () => console.log("disconnected"),
+  },
+  playground: {
+    subscriptionEndpoint: "/api/graphqlSubscriptions",
 
-(async function () {
-  try {
-    const db = await mongoose.connect(process.env.DB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("db connected");
-  } catch (err) {
-    console.log(err);
-  }
-})();
+    settings: {
+      "request.credentials": "same-origin",
+    },
+  },
+});
 
 export const config = {
   api: {
@@ -49,4 +53,26 @@ export const config = {
   },
 };
 
-export default handler;
+const graphqlWithSubscriptionHandler = async (req, res, next) => {
+  // socket integration
+  if (!res.socket.server.apolloServer) {
+    await mongoose
+      .connect(process.env.DB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .then(() => {
+        console.log("db connected");
+        console.log(`* apolloServer first use *`);
+
+        apolloServer.installSubscriptionHandlers(res.socket.server);
+        const handler = apolloServer.createHandler({ path: "/api/graphql" });
+        res.socket.server.apolloServer = handler;
+      })
+      .catch((err) => console.log(err));
+  }
+
+  return res.socket.server.apolloServer(req, res, next);
+};
+
+export default graphqlWithSubscriptionHandler;

@@ -7,10 +7,11 @@ import interfaces from "./interfaces";
 import directives from "./directives";
 import dataScoures from "./datasources";
 import upload from "./upload";
+import subScription from "./subScription";
 const schemaArray = [
   root,
   /*main,
-  scalar, enums, unions, interfaces, directives, dataScoures,*/ upload,
+  scalar, enums, unions, interfaces, directives, dataScoures, upload,*/ subScription,
 ];
 
 export default schemaArray;
