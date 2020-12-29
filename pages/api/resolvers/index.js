@@ -24,37 +24,39 @@ import {
   subScriptionQuery,
   subScriptionShare,
 } from "./subScription";
+import { mockShare } from "./mock";
 
 export default {
   // Image: Image,
   // Date: customDate,
-  // ...enumShare,
+  ...enumShare,
   // ...unionsShare,
   // ...interfacesShare,
   // ...directivesShare,
   // ...dataSourceShare,
-  ...subScriptionShare,
-
+  // ...subScriptionShare,
+  ...mockShare,
   Query: {
     // ...rootQuery,
     // ...scalarQuery,
-    // ...enumQuery,
+    ...enumQuery,
     // ...unionsQuery,
     // ...interfacesQuery,
     // ...directivesQuery,
     // ...dataSourceQuery,
     // ...uploadQuery,
-    ...subScriptionQuery,
+    // ...subScriptionQuery,
   },
+
   Mutation: {
     // ...rootMutation,
     // ...scalarMutation,
-    // ...enumMutation,
+    ...enumMutation,
     // ...unionsMutation,
     // ...interfacesMutation,
     // ...directivesMutation,
     // ...dataSourceMutation,
     // ...uploadMutation,
-    ...subScriptionMutation,
+    // ...subScriptionMutation,
   },
 };

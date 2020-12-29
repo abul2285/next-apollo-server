@@ -26,7 +26,7 @@ export default gql`
 
   # a single query is exposed to list all users and filter by status and authType
   extend type Query {
-    users(first: Int!, from: ID, status: String, authType: AuthType): [User!]!
+    users(limit: Int!, status: Boolean, authType: AuthType): [User!]!
   }
 
   enum AccountState {

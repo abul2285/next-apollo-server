@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import AuhtDirective from "./directives/auth";
 import Decoration from "./directives/decoration";
 import PostData from "./datasources/Post";
+import mockObj from "./utils/mockObj";
 
 const apolloServer = new ApolloServer({
   typeDefs: typeDefs,
@@ -32,19 +33,8 @@ const apolloServer = new ApolloServer({
       postAPI: new PostData(),
     };
   },
-  subscriptions: {
-    path: "/api/graphqlSubscriptions",
-    keepAlive: 9000,
-    onConnect: console.log("connected"),
-    onDisconnect: () => console.log("disconnected"),
-  },
-  playground: {
-    subscriptionEndpoint: "/api/graphqlSubscriptions",
-
-    settings: {
-      "request.credentials": "same-origin",
-    },
-  },
+  mocks: mockObj,
+  mockEntireSchema: false,
 });
 
 export const config = {
@@ -53,26 +43,5 @@ export const config = {
   },
 };
 
-const graphqlWithSubscriptionHandler = async (req, res, next) => {
-  // socket integration
-  if (!res.socket.server.apolloServer) {
-    await mongoose
-      .connect(process.env.DB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
-      .then(() => {
-        console.log("db connected");
-        console.log(`* apolloServer first use *`);
-
-        apolloServer.installSubscriptionHandlers(res.socket.server);
-        const handler = apolloServer.createHandler({ path: "/api/graphql" });
-        res.socket.server.apolloServer = handler;
-      })
-      .catch((err) => console.log(err));
-  }
-
-  return res.socket.server.apolloServer(req, res, next);
-};
-
-export default graphqlWithSubscriptionHandler;
+const handler = apolloServer.createHandler({ path: "/api/graphql" });
+export default handler;

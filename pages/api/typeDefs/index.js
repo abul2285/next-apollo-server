@@ -8,10 +8,13 @@ import directives from "./directives";
 import dataScoures from "./datasources";
 import upload from "./upload";
 import subScription from "./subScription";
+import mock from "./mock";
 const schemaArray = [
   root,
   /*main,
-  scalar, enums, unions, interfaces, directives, dataScoures, upload,*/ subScription,
+  scalar,*/ enums,
+  /*unions,*/ interfaces,
+  /* directives, dataScoures, upload, subScription,*/ mock,
 ];
 
 export default schemaArray;
