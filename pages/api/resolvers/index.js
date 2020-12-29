@@ -25,21 +25,23 @@ import {
   subScriptionShare,
 } from "./subScription";
 import { mockShare } from "./mock";
+import { authenticationMutation, authenticationShare } from "./authentication";
 
 export default {
   // Image: Image,
   // Date: customDate,
-  ...enumShare,
+  // ...enumShare,
   // ...unionsShare,
   // ...interfacesShare,
   // ...directivesShare,
   // ...dataSourceShare,
   // ...subScriptionShare,
-  ...mockShare,
+  // ...mockShare,
+  // ...authenticationShare,
   Query: {
     // ...rootQuery,
     // ...scalarQuery,
-    ...enumQuery,
+    // ...enumQuery,
     // ...unionsQuery,
     // ...interfacesQuery,
     // ...directivesQuery,
@@ -51,12 +53,13 @@ export default {
   Mutation: {
     // ...rootMutation,
     // ...scalarMutation,
-    ...enumMutation,
+    // ...enumMutation,
     // ...unionsMutation,
     // ...interfacesMutation,
     // ...directivesMutation,
     // ...dataSourceMutation,
     // ...uploadMutation,
     // ...subScriptionMutation,
+    ...authenticationMutation,
   },
 };

@@ -64,7 +64,7 @@ export const rootMutation = {
   },
 
   createPost: async (_, { post }) => {
-    // delete mongoose.connection.models["Post"];
+    delete mongoose.connection.models["Post"];
     let newPost = await new Post(post);
     newPost.save();
     return newPost;

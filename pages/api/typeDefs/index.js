@@ -9,12 +9,13 @@ import dataScoures from "./datasources";
 import upload from "./upload";
 import subScription from "./subScription";
 import mock from "./mock";
+import authentication from "./authentication";
 const schemaArray = [
   root,
-  /*main,
-  scalar,*/ enums,
-  /*unions,*/ interfaces,
-  /* directives, dataScoures, upload, subScription,*/ mock,
+  main,
+  /*scalar, enums,
+  unions, interfaces,
+   directives, dataScoures, upload, subScription, mock,*/ authentication,
 ];
 
 export default schemaArray;

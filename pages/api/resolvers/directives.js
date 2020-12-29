@@ -1,5 +1,7 @@
+import { getUser } from "../data/db";
+
 export const directivesQuery = {
-  currentUser: (parent, args, context) => context.user,
+  currentUser: (parent, args, context) => getUser(context.auth),
 };
 export const directivesMutation = {};
 export const directivesShare = {

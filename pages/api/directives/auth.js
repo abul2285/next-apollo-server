@@ -3,6 +3,7 @@ import {
   SchemaDirectiveVisitor,
 } from "apollo-server-micro";
 import { defaultFieldResolver } from "graphql";
+import { getUser } from "../data/db";
 
 const assertOwner = (typename, user, data) => {
   if (typename === "Message" && user.id !== data.receiverId) {
@@ -15,7 +16,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
     const originalResolve = field.resolve || defaultFieldResolver;
     field.resolve = async function (...args) {
       const context = args[2];
-      const user = context.user || {};
+      const user = getUser(context.auth) || {};
       const requiresOwner = requiredRole === "OWNER";
       const isUnauthorized = !requiresOwner && user.role !== requiredRole;
       if (isUnauthorized) {

@@ -1,3 +1,7 @@
+import jwt from "jsonwebtoken";
+
+import User from "../models/user";
+
 export const employee = [
   {
     id: "1",
@@ -73,6 +77,17 @@ const messages = [
     text: "Hi Roy, I'm doing great! How are you?",
   },
 ];
-export const getUserByToken = (token) =>
-  users.find((user) => user.token === token);
+export const getUser = async (auth) => {
+  if (!auth) throw new AuthenticationError("you must be logged in!");
+
+  const token = auth.split("Bearer ")[1];
+  if (!token) throw new AuthenticationError("you should provide a token!");
+
+  const user = await jwt.verify(token, SECRET, (err, decoded) => {
+    if (err) throw new AuthenticationError("invalid token!");
+    return decoded;
+  });
+  return user;
+};
+
 export const getById = (id) => messages.find((message) => message.id === id);
